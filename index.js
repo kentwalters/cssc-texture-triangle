@@ -1,18 +1,17 @@
-const texts = [{
-  name: 'Heavy Clay',
-  geom: [[0, 100], [40, 60], [0, 60]],
-},
-{
-  name: 'Clay',
-  geom: [[0, 60], [40, 60], [45, 55], [45, 40], [20, 40]],
-}];
+const pip = require('robust-point-in-polygon');
+const polys = require('./texture-polygons');
 
-function getTexture(percentSand, percentClay) {
-  texts.forEach((t) => {
-    console.log(t.name);
+function getTexture(percentClay, percentSand) {
+  const givenPoint = [percentSand, percentClay];
+  let result = '';
+
+  polys.forEach((t) => {
+    if (pip(t.geom, givenPoint) < 1) {
+      result = t.name;
+    }
   });
 
-  return '';
+  return result;
 }
 
 module.exports = getTexture;

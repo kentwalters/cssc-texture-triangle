@@ -1,5 +1,6 @@
 const getTexture = require('./index');
 
+// These are the easy, non-edge cases.
 test('80% clay, 10% sand should be a Heavy Clay', () => {
   expect(getTexture(80, 10)).toBe('Heavy Clay');
 });
@@ -36,3 +37,18 @@ test('5% clay, 5% sand should be Silt', () => {
   expect(getTexture(5, 5)).toBe('Silt');
 });
 
+test('20% clay, 45% sand should be Loam', () => {
+  expect(getTexture(20, 45)).toBe('Loam');
+});
+
+test('10% clay, 60% sand should be Sandy Loam', () => {
+  expect(getTexture(10, 60)).toBe('Sandy Loam');
+});
+
+test('5% clay, 80% sand should be Loamy Sand', () => {
+  expect(getTexture(5, 80)).toBe('Loamy Sand');
+});
+
+test('5% clay, 90% sand should be Sand', () => {
+  expect(getTexture(5, 90)).toBe('Sand');
+});
