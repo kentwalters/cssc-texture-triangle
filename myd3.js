@@ -161,13 +161,23 @@ svg.append('text')
 
 // Polygon labels
 
-// let labels = plot.append('text')// should be centroid not average
-//   .attr('dx', (d) => {
-//     return scaleX(d.geom.map(
-//       g => g[0]).reduce(
-//       (total, score) => total + score) / d.geom.length) - 40;
-//   })
-//   .attr('dy', (d) =>{
-//     return scaleY(d.geom.map(g => g[1]).reduce((total, score) => total + score) / d.geom.length);
-//   })
-//   .text((d) => { return d.name });
+let labels = plot.append('text')// should be centroid not average
+  .attr('dx', (d) => {
+    return scaleX(d.geom.map(
+      g => g[0]).reduce(
+      (total, score) => total + score) / d.geom.length) - 40;
+  })
+  .attr('dy', (d) =>{
+    return scaleY(d.geom.map(g => g[1]).reduce((total, score) => total + score) / d.geom.length);
+  }).
+  attr('fill', 'white')
+  .text((d) => { return d.name });
+
+
+
+
+
+
+
+
+
