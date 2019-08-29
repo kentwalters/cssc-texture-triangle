@@ -7,8 +7,8 @@ body {
 
 .textBox {
     position: relative;
-    top: 0px;
-    left: 300px;
+    top: 220px;
+    left: 500px;
     font-size: 40pt;
     font-family: monospace;
     width: 500px
@@ -22,7 +22,6 @@ body {
 }
 
 #svg {
-    padding-left: 50px;
-    padding-top: 20px;
     position: fixed;
+    background-color: white;
 }

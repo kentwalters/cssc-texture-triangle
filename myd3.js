@@ -54,19 +54,20 @@ const texturePolygons = [{
 var tempColor;
 const width = 800;
 const height = 800;
+const margin = 50;
 const lineThickness = 3;
 
 const svg = d3.select('svg')
-  .attr('width', width)
-  .attr('height', height);
+  .attr('width', width + 2*margin)
+  .attr('height', height + 2*margin);
 
 const scaleX = d3.scale.linear()
   .domain([0, 100])
-  .range([0, width ]);
+  .range([margin, width]);
 
 const scaleY = d3.scale.linear()
   .domain([0, 100])
-  .range([height, 0]);
+  .range([height, margin]);
 
 const color = d3.scale.linear()
   .domain([0, 14])
@@ -81,14 +82,20 @@ const polygons = plot.append('polygon')
   .attr('points', (d) => {
     return d.geom.map((da) => { return [scaleX(da[0]), scaleY(da[1])].join(','); }).join(' ');})
   .attr('stroke', 'white')
+  .attr('transform', `translate(${margin},${margin})`)
   .attr('stroke-width', lineThickness)
   .attr('fill', (d, i) => {
     return color(i);
   });
 
 polygons.on('mouseover', function(d) {
+  // Set name
   d3.select('#textname').text(d.name);
+
+  // Save original color
   tempColor = color(texturePolygons.map( p => p.name).indexOf(d.name));
+
+  // Highlight
   d3.select(this)
     .transition().duration(100)
     .style('opacity', 0.5)
@@ -96,7 +103,6 @@ polygons.on('mouseover', function(d) {
 });
 
 polygons.on('mouseout', function(d)  {
-  console.log(d)
   d3.select(this)
     .transition()
     .style('opacity', 1)
@@ -131,44 +137,48 @@ const yAxis = d3.svg.axis()
   .orient('left');
 
 svg.append('g')
-  .attr('transform', 'translate(0,' + height +')')
+  .attr('transform', `translate(${margin},${height + margin})`)
   .attr('class', 'main axis date')
   .call(xAxis);
 
 svg.append('g')
-  .attr('transform', 'translate(100,0)')
+  .attr('transform', `translate(${2*margin},${margin})`)
   .attr('class', 'main axis date')
   .call(yAxis);
 
 svg.append('text')
   .attr('class', 'x label')
   .attr('text-anchor', 'end')
-  .attr('x', 50)
-  .attr('y', height + 45)
+  .attr('x', margin)
+  .attr('y', margin + height)
+  .attr('transform', `translate(${margin + margin},${margin})`)
   .text('% sand');
 
 svg.append('text')
   .attr('class', 'y label')
-  .attr('y', -40)
-  .attr('x', -height-6)
-  .attr('dy', '.75em')
-  .attr('transform', 'rotate(-90)')
+  .attr('text-anchor', 'end')
+  .attr('x', margin)
+  .attr('y', margin + height)
+
+  .attr('transform', `translate(${-width},${height + margin}) rotate(-90)`)
+
   .text('% clay');
 
 svg.append('text')
-  .attr('x', -625)
-  .attr('y', 570)
-  .attr('transform', 'rotate(-45)')
+  .attr('x', 0)
+  .attr('y', 0)
+  .attr('transform', `translate(${margin},${height + 2*margin}) rotate(-45)`)
   .text('% silt');
 
 // Polygon labels
 
-let labels = plot.append('text')// should be centroid not average
+const labels = plot.append('text')// should be centroid not average
   .attr('dx', (d) => {
     return scaleX(d.geom.map(
       g => g[0]).reduce(
       (total, score) => total + score) / d.geom.length) - 40;
   })
+  .attr('transform', `translate(${margin},${margin})`)
   .attr('dy', (d) =>{
     return scaleY(d.geom.map(g => g[1]).reduce((total, score) => total + score) / d.geom.length);
   }).
