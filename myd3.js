@@ -160,7 +160,7 @@ svg.append('text')
   .attr('x', margin)
   .attr('y', margin + height)
 
-  .attr('transform', `translate(${-width},${height + margin}) rotate(-90)`)
+  .attr('transform', `translate(${-width + 18},${height + margin}) rotate(-90)`)
 
   .text('% clay');
 
