@@ -1,0 +1,28 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: auto;
+    position: relative;
+    width: 960px;
+}
+
+.textBox {
+    position: relative;
+    top: 0px;
+    left: 300px;
+    font-size: 40pt;
+    font-family: monospace;
+    width: 500px
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+#svg {
+    padding-left: 50px;
+    padding-top: 20px;
+    position: fixed;
+}

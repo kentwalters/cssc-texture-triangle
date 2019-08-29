@@ -51,13 +51,14 @@ const texturePolygons = [{
   geom: [[90, 10], [83, 0], [100, 0]],
 }];
 
+var tempColor;
 const width = 800;
 const height = 800;
 const lineThickness = 3;
 
 const svg = d3.select('svg')
-  .attr('width', width + 50)
-  .attr('height', height + 50);
+  .attr('width', width)
+  .attr('height', height);
 
 const scaleX = d3.scale.linear()
   .domain([0, 100])
@@ -87,14 +88,15 @@ const polygons = plot.append('polygon')
 
 polygons.on('mouseover', function(d) {
   d3.select('#textname').text(d.name);
-  tempColor = this.style.fill;
+  tempColor = color(texturePolygons.map( p => p.name).indexOf(d.name));
   d3.select(this)
     .transition().duration(100)
     .style('opacity', 0.5)
-    .style('fill', 'white');
+    .style('fill', 'red');
 });
 
 polygons.on('mouseout', function(d)  {
+  console.log(d)
   d3.select(this)
     .transition()
     .style('opacity', 1)
@@ -134,7 +136,7 @@ svg.append('g')
   .call(xAxis);
 
 svg.append('g')
-  .attr('transform', 'translate(0,0)')
+  .attr('transform', 'translate(100,0)')
   .attr('class', 'main axis date')
   .call(yAxis);
 
@@ -172,12 +174,3 @@ let labels = plot.append('text')// should be centroid not average
   }).
   attr('fill', 'white')
   .text((d) => { return d.name });
-
-
-
-
-
-
-
-
-
