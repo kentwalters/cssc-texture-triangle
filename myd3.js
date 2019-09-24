@@ -112,8 +112,9 @@ polygons.on('mouseout', function(d)  {
 plot.on('mousemove', ()=>{
   let sandSilt = d3.mouse(plot.node());
   let proportions = {};
-  proportions.sand = (sandSilt[0] / width) * 100;
-  proportions.clay = ((height - sandSilt[1]) / height) * 100;
+  console.log(sandSilt)
+  proportions.sand = ((sandSilt[0] - 100) / 750) * 100;
+  proportions.clay = ((750 - (sandSilt[1] - 100)) / 750) * 100;
   proportions.silt = 100 - (proportions.sand + proportions.clay);
 
   for (let [key, value] of Object.entries(proportions)) {
