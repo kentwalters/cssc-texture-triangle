@@ -6,4 +6,4 @@ but in ✨javascript✨.
 
 Each soil texture is considered a polygon, represented by an array of coordinates of the vertexes.
 
-# [Check it out](http://texture-triangle.surge.sh/)
+# [Check it out](https://cssc-texture-triangle.vercel.app/)
